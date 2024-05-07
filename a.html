@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hospital and medication</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
+    <style>
+        /* CSS styles for the container */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #000; /* Change text color to black */
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #000; /* Change heading color to black */
+        }
+        a {
+            color: #000; /* Change link color to black */
+        }
+        .chart-container {
+            width: 100%;
+            height: 400px;
+        }
+        .list-inline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-inline-item {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.list-inline-item:last-child {
+    margin-right: 0;
+}
+.navbar-dark.navbar-nav.nav-link {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #333;
+    color: #555;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.navbar-dark.navbar-nav.nav-link:hover,
+.navbar-dark.navbar-nav.nav-link:focus {
+    background-color: #555;
+}
+
+.fa-twitter,
+.fa-linkedin,
+.fa-facebook-square {
+    transition: color 0.2s ease-in-out;
+}
+
+.fa-twitter:hover {
+    color: #0084b4;
+}
+
+.fa-linkedin:hover {
+    color: #007bb6;
+}
+
+.fa-facebook-square:hover {
+    color: #3b5998;
+}
+.social-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+footer {
+    background-color: #333;
+    padding: 20px 0;
+    border: 1px solid #000;
+    text-align: center;
+}
+.copyright {
+    text-align: center;
+    margin-top: 10px;
+    color: #fff;
+}
+    </style>
+</head>
+<body>
+    <header class="bg-primary text-white py-5">
+        <div class="container">
+            <h1 class="display-4" style="color: black;">Hospitals and medication</h1>
+            <p class="lead" style="color: black;">We specialize in providing comprehensive solutions for hospitals and healthcare facilities.</p>
+            <button class="btn btn-light"><a href="hospital-services-and-medications.html" style="color: black;">Learn More</a></button>
+        </div>
+    </header>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="https://www.spsc.gov.sa/English/Pages/Home.aspx" style="color: black;">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#medication-errors" style="color: black;">Medication Errors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#medication-types" style="color: black;">Medication Types</a>
+                    </li>
+                    <li class='nav-item'>
+                        <a class='nav-link' href='sign-in.html' style='color: black;'>Sign In</a>
+                    </li>
+                    <li class='nav-item'>
+                        <a class='nav-link' href='log-in.html' style='color: black;'>Log In</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+          apiKey: "AIzaSyAWDuOchzgQshRZ1szC9YNyuP0S0_FJEI8",
+          authDomain: "hospital-medication.firebaseapp.com",
+          projectId: "hospital-medication",
+          storageBucket: "hospital-medication.appspot.com",
+          messagingSenderId: "530297903196",
+          appId: "1:530297903196:web:974f84e5c6d4fc17bb2e99",
+          measurementId: "G-2FF8H7MZ9V"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
+    <main class="container py-5">
+        <section id="about">
+            <h2>About Us</h2>
+            <p>We are a team of professionals dedicated to providing innovative solutions for hospitals and healthcare providers. Our goal is to improve patient care and safety through technology and data-driven insights.</p>
+        </section>
+
+        <section id="services" class="mt-5">
+            <h2>Our Services</h2>
+            <ul>
+                <li>Medication Error Tracking</li>
+                <li>Medication Type Analysis</li>
+                <li>Patient Monitoring Systems</li>
+                <li>Electronic Health Records (EHR)</li>
+            </ul>
+        </section>
+
+        <section id="hospital-medication" class="mt-5">
+            <h2>Hospitals and Medications</h2>
+            <p>Our solutions are tailored to meet the unique needs of hospitals and healthcare providers. We offer comprehensive medication management systems to ensure patient safety and regulatory compliance.</p>
+        </section>
+
+        <!-- Medication Types Section -->
+        <section id="medication-types" class="mt-5">
+            <h2>Medication Types</h2>
+            <div class="container">
+                <h1>Medication Types</h1>
+                <div id="medicationTypesChartContainer" class="chart-container"></div>
+            </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Sample data for testing
+                    var data = [
+                        { source: 'Trade Name', total_events_Medication: 50 },
+                        { source: 'Old Trade Name', total_events_Medication: 30 }
+                        // Add more data points as needed
+                    ];
+
+                    // Create a simple pie chart using amCharts
+                    var chart = am4core.create("medicationTypesChartContainer", am4charts.PieChart);
+                    chart.data = data;
+
+                    // Add pie series
+                    var pieSeries = chart.series.push(new am4charts.PieSeries());
+                    pieSeries.dataFields.value = "total_events_Medication";
+                    pieSeries.dataFields.category = "source";
+                    pieSeries.slices.template.tooltipText = "{category}: {value.value}";
+                    pieSeries.colors.list = [
+                        am4core.color("#FF5733"), // Trade Name
+                        am4core.color("#3498db")  // Old Trade Name
+                    ];
+
+                    // Add legend
+                    chart.legend = new am4charts.Legend();
+                });
+            </script>
+        </section>
+
+        <!-- Medication Errors Section -->
+        <section id="medication-errors" class="mt-5">
+            <h2>Medication Errors</h2>
+            <div class="container">
+                <h1>Medication Errors</h1>
+                <div id="medicationErrorsChartContainer" class="chart-container"></div>
+            </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Sample data for testing
+                    var data = [
+                        { day_of_week: 'sunday', hour_of_day: 8, error_count: 5 },
+                        { day_of_week: 'sunday', hour_of_day: 12, error_count: 10 },
+                        { day_of_week: 'sunday', hour_of_day: 16, error_count: 8 },
+                        { day_of_week: 'Monday', hour_of_day: 8, error_count: 5 },
+                        { day_of_week: 'Monday', hour_of_day: 12, error_count: 10 },
+                        { day_of_week: 'Monday', hour_of_day: 16, error_count: 8 },
+                        { day_of_week: 'Tuesday', hour_of_day: 8, error_count: 3 },
+                        { day_of_week: 'Tuesday', hour_of_day: 12, error_count: 7 },
+                        { day_of_week: 'Tuesday', hour_of_day: 16, error_count: 12 },
+                        { day_of_week: 'Wednesday', hour_of_day: 8, error_count: 6 },
+                        { day_of_week: 'Wednesday', hour_of_day: 12, error_count: 11 },
+                        { day_of_week: 'Wednesday', hour_of_day: 16, error_count: 9 },
+                        { day_of_week: 'thursday', hour_of_day: 8, error_count: 5 },
+                        { day_of_week: 'thursday', hour_of_day: 12, error_count: 10 },
+                        { day_of_week: 'thursday', hour_of_day: 16, error_count: 8 },
+                        { day_of_week: 'friday', hour_of_day: 8, error_count: 3 },
+                        { day_of_week: 'friday', hour_of_day: 12, error_count: 7 },
+                        { day_of_week: 'friday', hour_of_day: 16, error_count: 12 },
+                        { day_of_week: 'saturday', hour_of_day: 8, error_count: 6 },
+                        { day_of_week: 'saturday', hour_of_day: 12, error_count: 11 },
+                        { day_of_week: 'saturday', hour_of_day: 16, error_count: 9 }
+                        // Add more data points for other days and hours
+                    ];
+
+                    // Create a heatmap chart using amCharts
+                    var chart = am4core.create("medicationErrorsChartContainer", am4charts.XYChart);
+                    chart.data = data;
+
+                    // Create X axis
+                    var xAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+                    xAxis.dataFields.category = "day_of_week";
+                    xAxis.title.text = "Day of Week";
+
+                    // Create Y axis
+                    var yAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+                    yAxis.dataFields.category = "hour_of_day";
+                    yAxis.title.text = "Hour of Day";
+
+                    // Create heatmap series
+                    var series = chart.series.push(new am4charts.ColumnSeries());
+                    series.dataFields.categoryX = "day_of_week";
+                    series.dataFields.categoryY = "hour_of_day";
+                    series.dataFields.value = "error_count";
+                    series.columns.template.tooltipText = "{value}";
+                    series.columns.template.width = am4core.percent(100);
+                    series.columns.template.height = am4core.percent(100);
+
+                    // Set up a custom gradient color scale for the heatmap
+                    series.heatRules.push({
+                        target: series.columns.template,
+                        property: "fill",
+                        min: am4core.color("#FFFFFF"),
+                        max: am4core.color("#FF0000"),
+                        dataField: "value",
+                        // Custom color scale
+                        minColor: am4core.color("#FFFFFF"),
+                        maxColor: am4core.color("#FF0000")
+                    });
+
+                    // Configure heat legend
+                    chart.legend = new am4charts.HeatLegend();
+                    chart.legend.valign = "bottom";
+                    chart.legend.align = "center";
+                    chart.legend.width = am4core.percent(100);
+
+                    // Enable responsive layout
+                    chart.responsive.enabled = true;
+
+                    // Add cursor
+                    chart.cursor = new am4charts.XYCursor();
+                });
+            </script>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="social-media">
+                <a href="https://www.facebook.com/" target="_blank" class="social-link facebook">
+                    <img src="facebook-icon.jpg" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://X.com/" target="_blank" class="social-link twitter">
+                    <img src="x-icon.jpg" alt="Twitter" class="social-icon">
+                </a>
+                <a href="https://www.linkedin.com/" target="_blank" class="social-link linkedin">
+                    <img src="linkedin-icon.jpg" alt="LinkedIn" class="social-icon">
+                </a>
+            </div>
+            <div class="contact-info">
+                <p>Email: info@hospitalmeds.com</p>
+                <p>Phone: +123-456-7890</p>
+            </div>
+            <div class="copyright">
+                <p style="color: black;">&copy; 2024 Professional Web Interface. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+  
+
+    <!-- Include amCharts library -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-qlXEj0i1tODwfiDw3j/xGTy5pc2/CkqLi2qXBbTWmGl5UJoa2tkGKjlqfPO8YoRx" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"></script>
+</body>
+</html>
